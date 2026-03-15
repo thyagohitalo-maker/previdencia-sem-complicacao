@@ -6,11 +6,19 @@ exports.handler = async (event) => {
   try {
     const { email, nome, ebookUrl } = JSON.parse(event.body);
 
+    if (!email) {
+      return { statusCode: 400, body: JSON.stringify({ error: "Email obrigatório" }) };
+    }
+
     const BREVO_KEY  = process.env.BREVO_KEY;
     const BREVO_FROM = process.env.BREVO_FROM;
 
+    if (!BREVO_KEY || !BREVO_FROM) {
+      return { statusCode: 500, body: JSON.stringify({ error: "Variáveis de ambiente não configuradas" }) };
+    }
+
     // 1. Salva contato na lista 5
-    await fetch("https://api.brevo.com/v3/contacts", {
+    const contactRes = await fetch("https://api.brevo.com/v3/contacts", {
       method: "POST",
       headers: { "Content-Type": "application/json", "api-key": BREVO_KEY },
       body: JSON.stringify({
@@ -50,7 +58,7 @@ exports.handler = async (event) => {
   </div>
 </div>`;
 
-    await fetch("https://api.brevo.com/v3/smtp/email", {
+    const emailRes = await fetch("https://api.brevo.com/v3/smtp/email", {
       method: "POST",
       headers: { "Content-Type": "application/json", "api-key": BREVO_KEY },
       body: JSON.stringify({
@@ -60,6 +68,15 @@ exports.handler = async (event) => {
         htmlContent: emailHtml
       })
     });
+
+    const emailData = await emailRes.json();
+
+    if (!emailRes.ok) {
+      return {
+        statusCode: 500,
+        body: JSON.stringify({ error: "Erro ao enviar e-mail", detail: emailData })
+      };
+    }
 
     return {
       statusCode: 200,
