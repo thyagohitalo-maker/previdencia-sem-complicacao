@@ -475,6 +475,67 @@ nav{
 .typing .d:nth-child(1){animation:pulse 1.2s .0s infinite;}
 .typing .d:nth-child(2){animation:pulse 1.2s .2s infinite;}
 .typing .d:nth-child(3){animation:pulse 1.2s .4s infinite;}
+
+/* ══════════════════════════════
+   CALCULADORA
+══════════════════════════════ */
+#calculadora{
+  padding:100px 20px;
+  background:var(--navy3);
+  border-top:1px solid var(--border);
+}
+.calc-inner{max-width:860px;margin:0 auto;}
+.calc-grid{display:grid;grid-template-columns:1fr 1fr;gap:32px;margin-top:48px;}
+@media(max-width:640px){.calc-grid{grid-template-columns:1fr;}}
+
+.calc-card{
+  background:rgba(18,31,53,.8);border:1px solid var(--border);
+  border-radius:20px;padding:36px;backdrop-filter:blur(12px);
+}
+.calc-fields{display:flex;flex-direction:column;gap:28px;}
+.calc-field label{
+  display:block;font-size:12px;font-weight:700;
+  color:var(--gold);letter-spacing:.8px;text-transform:uppercase;margin-bottom:10px;
+}
+.calc-field .slider-val{
+  font-family:'DM Serif Display',serif;font-size:22px;color:var(--gold2);
+  display:block;margin-bottom:8px;
+}
+
+/* Taxa botões */
+.taxa-btns{display:flex;gap:8px;}
+.taxa-btn{
+  flex:1;padding:11px 8px;border-radius:10px;font-size:12px;font-weight:700;
+  cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s;
+  border:1px solid var(--border);background:var(--navy3);color:var(--text2);
+  text-align:center;
+}
+.taxa-btn.active{border-color:var(--gold);background:rgba(201,168,76,.1);color:var(--gold);}
+
+/* Resultado */
+.calc-resultado{display:flex;flex-direction:column;gap:20px;justify-content:center;}
+
+.result-total{
+  background:linear-gradient(135deg,rgba(201,168,76,.15),rgba(201,168,76,.05));
+  border:1px solid rgba(201,168,76,.3);border-radius:14px;padding:24px;text-align:center;
+}
+.result-total-label{font-size:12px;color:var(--gold);font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;}
+.result-total-val{font-family:'DM Serif Display',serif;font-size:42px;color:var(--gold2);line-height:1;}
+.result-total-sub{font-size:12px;color:var(--text2);margin-top:6px;}
+
+.result-split{display:flex;flex-direction:column;gap:12px;}
+.result-split-row{display:flex;flex-direction:column;gap:6px;}
+.result-split-label{display:flex;justify-content:space-between;align-items:center;}
+.result-split-name{font-size:13px;color:var(--text2);}
+.result-split-val{font-size:13px;font-weight:700;color:var(--text);}
+.result-split-bar{height:8px;background:var(--border);border-radius:4px;overflow:hidden;}
+.result-split-fill{height:100%;border-radius:4px;transition:width 1s cubic-bezier(.4,0,.2,1);}
+
+.result-insight{
+  background:var(--navy3);border:1px solid var(--border);
+  border-radius:12px;padding:16px;font-size:13px;color:var(--text2);line-height:1.65;
+}
+.result-insight strong{color:var(--gold2);}
 </style>
 </head>
 <body>
@@ -613,6 +674,90 @@ nav{
         </div>
 
         <button class="result-recalc" onclick="recalcular()">← Simular novamente com outros dados</button>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- CALCULADORA -->
+<section id="calculadora">
+  <div class="calc-inner">
+    <div class="section-eyebrow">Calculadora de Patrimônio</div>
+    <h2 class="section-title">Quanto você vai acumular?</h2>
+    <p class="section-sub">Veja o poder dos juros compostos na previdência privada ao longo do tempo.</p>
+
+    <div class="calc-grid">
+
+      <!-- INPUTS -->
+      <div class="calc-card">
+        <div class="calc-fields">
+
+          <div class="calc-field">
+            <label>Saldo atual na previdência</label>
+            <input class="money-input" type="text" id="calc-saldo" placeholder="R$ 0,00"
+              oninput="maskMoney(this);calcular_patrimonio()">
+          </div>
+
+          <div class="calc-field">
+            <label>Aporte mensal</label>
+            <input class="money-input" type="text" id="calc-aporte" placeholder="R$ 500,00"
+              oninput="maskMoney(this);calcular_patrimonio()">
+          </div>
+
+          <div class="calc-field">
+            <label>Anos até aposentar</label>
+            <span class="slider-val" id="calc-anos-val">20 anos</span>
+            <input type="range" id="calc-anos" min="1" max="40" value="20"
+              oninput="document.getElementById('calc-anos-val').textContent=this.value+(this.value==1?' ano':' anos');calcular_patrimonio()">
+          </div>
+
+          <div class="calc-field">
+            <label>Rentabilidade estimada</label>
+            <div class="taxa-btns">
+              <button class="taxa-btn" onclick="setTaxa(8, this)">Conservador<br><small>8% a.a.</small></button>
+              <button class="taxa-btn active" onclick="setTaxa(10, this)">Moderado<br><small>10% a.a.</small></button>
+              <button class="taxa-btn" onclick="setTaxa(12, this)">Arrojado<br><small>12% a.a.</small></button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- RESULTADO -->
+      <div class="calc-resultado">
+
+        <div class="result-total">
+          <div class="result-total-label">Patrimônio estimado</div>
+          <div class="result-total-val" id="calc-total">R$ 0</div>
+          <div class="result-total-sub" id="calc-total-sub">Preencha os dados ao lado</div>
+        </div>
+
+        <div class="result-split">
+          <div class="result-split-row">
+            <div class="result-split-label">
+              <span class="result-split-name">Total aportado</span>
+              <span class="result-split-val" id="calc-aportado">R$ 0</span>
+            </div>
+            <div class="result-split-bar">
+              <div class="result-split-fill" id="bar-aportado" style="background:var(--blue2);width:0%"></div>
+            </div>
+          </div>
+          <div class="result-split-row">
+            <div class="result-split-label">
+              <span class="result-split-name">Rendimento dos juros</span>
+              <span class="result-split-val" id="calc-rendimento">R$ 0</span>
+            </div>
+            <div class="result-split-bar">
+              <div class="result-split-fill" id="bar-rendimento" style="background:var(--gold);width:0%"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="result-insight" id="calc-insight">
+          Preencha os campos ao lado para ver a projeção do seu patrimônio.
+        </div>
 
       </div>
     </div>
@@ -897,4 +1042,61 @@ async function baixarEbook(){
     alert("Erro ao enviar. Tente novamente.");
   }
 }
+// ══════════════════════════════
+// CALCULADORA
+// ══════════════════════════════
+let taxaAnual = 10;
+
+function setTaxa(val, el) {
+  taxaAnual = val;
+  document.querySelectorAll(".taxa-btn").forEach(b => b.classList.remove("active"));
+  el.classList.add("active");
+  calcular_patrimonio();
+}
+
+function calcular_patrimonio() {
+  const saldo  = parseMoney(document.getElementById("calc-saldo").value) || 0;
+  const aporte = parseMoney(document.getElementById("calc-aporte").value) || 0;
+  const anos   = parseInt(document.getElementById("calc-anos").value) || 0;
+  const taxa   = taxaAnual / 100;
+  const meses  = anos * 12;
+  const taxaMensal = Math.pow(1 + taxa, 1/12) - 1;
+
+  if (aporte === 0 && saldo === 0) return;
+
+  // FV saldo atual
+  const fvSaldo = saldo * Math.pow(1 + taxaMensal, meses);
+
+  // FV aportes mensais
+  const fvAportes = aporte * ((Math.pow(1 + taxaMensal, meses) - 1) / taxaMensal);
+
+  const total      = fvSaldo + fvAportes;
+  const aportado   = saldo + aporte * meses;
+  const rendimento = total - aportado;
+
+  // Atualiza display
+  document.getElementById("calc-total").textContent     = formatBRL(total);
+  document.getElementById("calc-aportado").textContent  = formatBRL(aportado);
+  document.getElementById("calc-rendimento").textContent = formatBRL(rendimento);
+  document.getElementById("calc-total-sub").textContent = `Em ${anos} ano${anos===1?'':'s'} com ${taxaAnual}% a.a.`;
+
+  // Barras
+  const pctAportado   = Math.round((aportado / total) * 100);
+  const pctRendimento = Math.round((rendimento / total) * 100);
+  setTimeout(() => {
+    document.getElementById("bar-aportado").style.width   = pctAportado + "%";
+    document.getElementById("bar-rendimento").style.width = pctRendimento + "%";
+  }, 100);
+
+  // Insight
+  const multiplicador = (total / aportado).toFixed(1);
+  const pctJuros = Math.round((rendimento / total) * 100);
+  document.getElementById("calc-insight").innerHTML =
+    `Os juros compostos vão trabalhar por você: <strong>${pctJuros}% do seu patrimônio final</strong> vem do rendimento, não do que você aportou. Cada R$ 1 aportado hoje vira <strong>R$ ${multiplicador}</strong> no final do período.`;
+}
+
+function formatBRL(val) {
+  return val.toLocaleString("pt-BR", { style: "currency", currency: "BRL", maximumFractionDigits: 0 });
+}
+
 </script>
