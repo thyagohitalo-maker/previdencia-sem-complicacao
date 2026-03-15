@@ -1,0 +1,930 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Previdência Sem Complicação</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --navy:   #080F1C;
+  --navy2:  #0D1829;
+  --navy3:  #121F35;
+  --navy4:  #1A2D47;
+  --gold:   #C9A84C;
+  --gold2:  #EDD898;
+  --gold3:  #7A5E1A;
+  --gold4:  #F5EDD4;
+  --text:   #C4D0DE;
+  --text2:  #6E8BA8;
+  --border: #1C304A;
+  --green:  #1A7A48;
+  --green2: #3DB87A;
+  --blue:   #2563EB;
+  --blue2:  #60A5FA;
+  --red:    #C0392B;
+  --orange: #D97706;
+}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;background:var(--navy);color:var(--text);overflow-x:hidden;}
+
+@keyframes fadeUp  {from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+@keyframes fadeIn  {from{opacity:0;}to{opacity:1;}}
+@keyframes pulse   {0%,80%,100%{transform:scale(.5);opacity:.25;}40%{transform:scale(1);opacity:1;}}
+@keyframes glow    {0%,100%{box-shadow:0 0 20px #C9A84C22;}50%{box-shadow:0 0 44px #C9A84C66;}}
+@keyframes shimmer {0%{background-position:-400px 0;}100%{background-position:400px 0;}}
+@keyframes spin    {to{transform:rotate(360deg);}}
+@keyframes barGrow {from{width:0;}to{width:var(--tw);}}
+
+::-webkit-scrollbar{width:3px;}
+::-webkit-scrollbar-track{background:transparent;}
+::-webkit-scrollbar-thumb{background:var(--navy4);border-radius:3px;}
+
+/* ══════════════════════════════
+   HERO
+══════════════════════════════ */
+.hero{
+  min-height:100vh;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  padding:80px 20px 100px;position:relative;overflow:hidden;
+  background:radial-gradient(ellipse at 60% -5%,#1B3D7A2A 0%,transparent 55%),var(--navy);
+}
+.hero::before{
+  content:'';position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(201,168,76,.04) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(201,168,76,.04) 1px,transparent 1px);
+  background-size:44px 44px;pointer-events:none;
+}
+.hero::after{
+  content:'';position:absolute;
+  width:700px;height:700px;border-radius:50%;
+  background:radial-gradient(circle,rgba(37,99,235,.07) 0%,transparent 70%);
+  top:-200px;right:-200px;pointer-events:none;
+}
+
+.hero-inner{width:100%;max-width:700px;text-align:center;position:relative;z-index:1;}
+
+.hero-pill{
+  display:inline-flex;align-items:center;gap:8px;
+  background:rgba(201,168,76,.08);border:1px solid rgba(201,168,76,.22);
+  border-radius:30px;padding:6px 18px;
+  font-size:12px;font-weight:600;color:var(--gold);letter-spacing:.8px;
+  margin-bottom:36px;animation:fadeUp .7s ease;
+}
+
+.hero-title{
+  font-family:'DM Serif Display',serif;
+  font-size:clamp(38px,7vw,68px);
+  color:#FFFFFF;line-height:1.1;margin-bottom:10px;
+  animation:fadeUp .7s .1s ease both;
+}
+.hero-title em{color:var(--gold);font-style:italic;}
+
+.hero-sub{
+  font-size:clamp(15px,2vw,18px);color:var(--text2);
+  line-height:1.8;max-width:560px;margin:0 auto 52px;
+  animation:fadeUp .7s .2s ease both;
+}
+
+.hero-stats{
+  display:flex;gap:0;margin-bottom:52px;
+  background:rgba(13,24,41,.8);
+  border:1px solid var(--border);border-radius:16px;overflow:hidden;
+  animation:fadeUp .7s .3s ease both;
+  backdrop-filter:blur(8px);
+}
+.hero-stat{flex:1;padding:20px 16px;text-align:center;border-right:1px solid var(--border);}
+.hero-stat:last-child{border-right:none;}
+.hero-stat-n{
+  font-family:'DM Serif Display',serif;font-size:30px;color:var(--gold2);
+  background:linear-gradient(135deg,var(--gold),var(--gold2));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+}
+.hero-stat-l{font-size:11px;color:var(--text2);margin-top:4px;letter-spacing:.3px;}
+
+.hero-cta{
+  animation:fadeUp .7s .4s ease both;display:flex;gap:12px;
+  justify-content:center;flex-wrap:wrap;
+}
+.btn-hero{
+  padding:16px 32px;border-radius:12px;font-size:15px;font-weight:600;
+  cursor:pointer;font-family:'DM Sans',sans-serif;
+  text-decoration:none;transition:all .25s;display:inline-flex;align-items:center;gap:8px;
+}
+.btn-hero.primary{
+  background:linear-gradient(135deg,var(--gold),var(--gold3));color:var(--navy);
+  border:none;animation:glow 3s ease-in-out infinite;
+}
+.btn-hero.primary:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(201,168,76,.5);}
+.btn-hero.secondary{
+  background:transparent;color:var(--text);
+  border:1px solid var(--border);
+}
+.btn-hero.secondary:hover{border-color:var(--gold3);color:var(--gold2);}
+
+/* ══════════════════════════════
+   SIMULADOR
+══════════════════════════════ */
+#simulador{
+  padding:100px 20px;
+  background:var(--navy2);
+  border-top:1px solid var(--border);
+}
+.sim-inner{max-width:860px;margin:0 auto;}
+
+.section-eyebrow{
+  font-size:11px;font-weight:700;letter-spacing:2px;
+  color:var(--gold);text-transform:uppercase;
+  text-align:center;margin-bottom:12px;
+}
+.section-title{
+  font-family:'DM Serif Display',serif;
+  font-size:clamp(28px,4vw,44px);color:#FFF;
+  text-align:center;margin-bottom:12px;line-height:1.2;
+}
+.section-sub{
+  font-size:15px;color:var(--text2);text-align:center;
+  max-width:520px;margin:0 auto 56px;line-height:1.7;
+}
+
+/* Form da calculadora */
+.sim-card{
+  background:rgba(18,31,53,.7);border:1px solid var(--border);
+  border-radius:20px;padding:40px;
+  backdrop-filter:blur(12px);
+}
+
+.sim-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:32px;}
+@media(max-width:580px){.sim-grid{grid-template-columns:1fr;}}
+
+.sim-field label{
+  display:block;font-size:12px;font-weight:600;
+  color:var(--gold);letter-spacing:.8px;text-transform:uppercase;margin-bottom:10px;
+}
+.sim-field .field-hint{font-size:11px;color:var(--text2);margin-top:6px;}
+
+/* Slider */
+.slider-wrap{position:relative;}
+.slider-val{
+  position:absolute;right:0;top:-28px;
+  font-family:'DM Serif Display',serif;font-size:22px;color:var(--gold2);
+}
+input[type=range]{
+  width:100%;-webkit-appearance:none;height:4px;
+  background:var(--border);border-radius:2px;outline:none;cursor:pointer;
+}
+input[type=range]::-webkit-slider-thumb{
+  -webkit-appearance:none;width:20px;height:20px;border-radius:50%;
+  background:linear-gradient(135deg,var(--gold),var(--gold3));
+  box-shadow:0 0 10px rgba(201,168,76,.5);cursor:pointer;
+}
+
+/* Risco buttons */
+.risco-btns{display:flex;gap:8px;}
+.risco-btn{
+  flex:1;padding:12px 8px;border-radius:10px;font-size:13px;font-weight:600;
+  cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s;
+  border:1px solid var(--border);background:var(--navy3);color:var(--text2);
+  text-align:center;
+}
+.risco-btn.active.conservador{border-color:#3DB87A;background:rgba(26,122,72,.15);color:#3DB87A;}
+.risco-btn.active.moderado{border-color:var(--gold);background:rgba(201,168,76,.1);color:var(--gold);}
+.risco-btn.active.arrojado{border-color:#F87171;background:rgba(192,57,43,.1);color:#F87171;}
+
+/* Input monetário */
+.money-input{
+  width:100%;background:var(--navy3);border:1px solid var(--border);
+  border-radius:10px;padding:13px 16px;font-size:16px;
+  color:var(--gold2);font-family:'DM Serif Display',serif;outline:none;
+  transition:border-color .2s,box-shadow .2s;
+}
+.money-input:focus{border-color:var(--gold3);box-shadow:0 0 0 3px rgba(201,168,76,.1);}
+.money-input::placeholder{color:var(--text2);font-family:'DM Sans',sans-serif;font-size:14px;}
+
+/* Botão calcular */
+.btn-calcular{
+  width:100%;padding:18px;
+  background:linear-gradient(135deg,var(--gold),var(--gold3));
+  border:none;border-radius:12px;font-size:16px;font-weight:700;
+  color:var(--navy);cursor:pointer;font-family:'DM Sans',sans-serif;
+  transition:all .25s;letter-spacing:.3px;
+  display:flex;align-items:center;justify-content:center;gap:10px;
+}
+.btn-calcular:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(201,168,76,.5);}
+.btn-calcular:disabled{opacity:.6;cursor:default;transform:none;}
+
+/* Loading */
+.sim-loading{
+  display:none;flex-direction:column;align-items:center;gap:16px;
+  padding:48px;text-align:center;
+}
+.sim-spinner{
+  width:40px;height:40px;border:3px solid var(--border);
+  border-top-color:var(--gold);border-radius:50%;
+  animation:spin 1s linear infinite;
+}
+.sim-loading p{font-size:14px;color:var(--text2);}
+
+/* Resultado */
+.sim-result{display:none;animation:fadeUp .5s ease;}
+
+.result-profile{
+  display:flex;align-items:center;gap:16px;
+  background:linear-gradient(135deg,rgba(201,168,76,.12),rgba(201,168,76,.04));
+  border:1px solid rgba(201,168,76,.3);border-radius:14px;
+  padding:20px 24px;margin-bottom:28px;
+}
+.result-profile-icon{
+  width:52px;height:52px;border-radius:12px;
+  background:linear-gradient(135deg,var(--gold),var(--gold3));
+  display:flex;align-items:center;justify-content:center;
+  font-size:24px;flex-shrink:0;
+}
+.result-profile-label{font-size:11px;color:var(--gold);font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:4px;}
+.result-profile-name{font-family:'DM Serif Display',serif;font-size:24px;color:var(--gold2);}
+.result-profile-desc{font-size:13px;color:var(--text2);margin-top:2px;}
+
+/* Barras de alocação */
+.alloc-section{margin-bottom:28px;}
+.alloc-title{font-size:12px;font-weight:700;color:var(--text2);letter-spacing:1px;text-transform:uppercase;margin-bottom:16px;}
+.alloc-bars{display:flex;flex-direction:column;gap:12px;}
+.alloc-bar-row{display:flex;align-items:center;gap:12px;}
+.alloc-bar-label{font-size:13px;color:var(--text);width:180px;flex-shrink:0;}
+.alloc-bar-track{flex:1;height:8px;background:var(--border);border-radius:4px;overflow:hidden;}
+.alloc-bar-fill{height:100%;border-radius:4px;width:0;transition:width 1.2s cubic-bezier(.4,0,.2,1);}
+.alloc-bar-pct{font-size:13px;font-weight:700;color:var(--gold2);width:42px;text-align:right;flex-shrink:0;}
+
+/* Análise textual */
+.result-analysis{
+  background:var(--navy3);border:1px solid var(--border);
+  border-radius:14px;padding:20px 22px;margin-bottom:28px;
+  font-size:14px;color:var(--text);line-height:1.75;
+}
+.result-analysis strong{color:var(--gold2);}
+
+/* CTAs dos produtos */
+.result-ctas{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:24px;}
+@media(max-width:640px){.result-ctas{grid-template-columns:1fr;}}
+
+.prod-cta{
+  border-radius:14px;padding:20px 18px;
+  border:1px solid var(--border);background:var(--navy3);
+  transition:all .25s;display:flex;flex-direction:column;gap:8px;
+}
+.prod-cta:hover{transform:translateY(-3px);}
+.prod-cta-icon{font-size:24px;margin-bottom:4px;}
+.prod-cta-tag{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;}
+.prod-cta-name{font-size:14px;font-weight:600;color:var(--gold2);line-height:1.4;}
+.prod-cta-desc{font-size:12px;color:var(--text2);line-height:1.5;flex:1;}
+.prod-cta-btn{
+  display:block;width:100%;padding:10px;border-radius:8px;
+  font-size:13px;font-weight:700;text-align:center;
+  text-decoration:none;cursor:pointer;font-family:'DM Sans',sans-serif;
+  transition:all .2s;margin-top:4px;border:none;
+}
+
+.prod-cta.ebook{border-color:#3DB87A33;}
+.prod-cta.ebook:hover{border-color:#3DB87A66;background:rgba(61,184,122,.05);}
+.prod-cta.ebook .prod-cta-tag{color:#3DB87A;}
+.prod-cta.ebook .prod-cta-btn{background:rgba(61,184,122,.15);color:#3DB87A;}
+.prod-cta.ebook .prod-cta-btn:hover{background:#3DB87A;color:var(--navy);}
+
+.prod-cta.analise{border-color:rgba(201,168,76,.33);}
+.prod-cta.analise:hover{border-color:rgba(201,168,76,.6);background:rgba(201,168,76,.05);}
+.prod-cta.analise .prod-cta-tag{color:var(--gold);}
+.prod-cta.analise .prod-cta-btn{background:linear-gradient(135deg,var(--gold),var(--gold3));color:var(--navy);}
+.prod-cta.analise .prod-cta-btn:hover{box-shadow:0 4px 16px rgba(201,168,76,.4);}
+
+.prod-cta.carteira{border-color:#60A5FA33;}
+.prod-cta.carteira:hover{border-color:#60A5FA66;background:rgba(96,165,250,.05);}
+.prod-cta.carteira .prod-cta-tag{color:var(--blue2);}
+.prod-cta.carteira .prod-cta-btn{background:rgba(96,165,250,.15);color:var(--blue2);}
+.prod-cta.carteira .prod-cta-btn:hover{background:var(--blue2);color:var(--navy);}
+
+.result-recalc{
+  width:100%;padding:12px;background:transparent;
+  border:1px solid var(--border);border-radius:10px;
+  font-size:13px;color:var(--text2);cursor:pointer;
+  font-family:'DM Sans',sans-serif;transition:all .2s;
+}
+.result-recalc:hover{border-color:var(--gold3);color:var(--gold2);}
+
+/* ══════════════════════════════
+   PRODUTOS
+══════════════════════════════ */
+#produtos{
+  padding:100px 20px;
+  background:var(--navy);
+  border-top:1px solid var(--border);
+}
+.prods-inner{max-width:1000px;margin:0 auto;}
+.prods-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:56px;}
+@media(max-width:760px){.prods-grid{grid-template-columns:1fr;}}
+
+.prod-card{
+  border-radius:20px;padding:32px 28px;
+  border:1px solid var(--border);background:var(--navy2);
+  display:flex;flex-direction:column;transition:all .25s;position:relative;overflow:hidden;
+}
+.prod-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:3px;
+}
+.prod-card.p1::before{background:linear-gradient(90deg,#3DB87A,#1A7A48);}
+.prod-card.p2::before{background:linear-gradient(90deg,var(--gold),var(--gold3));}
+.prod-card.p3::before{background:linear-gradient(90deg,var(--blue2),var(--blue));}
+.prod-card:hover{transform:translateY(-4px);border-color:rgba(201,168,76,.2);}
+
+.prod-card-badge{
+  display:inline-flex;align-items:center;gap:6px;
+  border-radius:6px;padding:4px 10px;font-size:11px;font-weight:700;
+  letter-spacing:.6px;text-transform:uppercase;margin-bottom:20px;width:fit-content;
+}
+.prod-card.p1 .prod-card-badge{background:rgba(61,184,122,.12);color:#3DB87A;}
+.prod-card.p2 .prod-card-badge{background:rgba(201,168,76,.12);color:var(--gold);}
+.prod-card.p3 .prod-card-badge{background:rgba(96,165,250,.12);color:var(--blue2);}
+
+.prod-card-icon{font-size:36px;margin-bottom:16px;}
+.prod-card-name{font-family:'DM Serif Display',serif;font-size:22px;color:#FFF;margin-bottom:10px;line-height:1.3;}
+.prod-card-desc{font-size:14px;color:var(--text2);line-height:1.7;flex:1;margin-bottom:24px;}
+
+.prod-card-includes{list-style:none;margin-bottom:28px;display:flex;flex-direction:column;gap:8px;}
+.prod-card-includes li{display:flex;align-items:flex-start;gap:10px;font-size:13px;color:var(--text);}
+.prod-card-includes li::before{content:'✓';flex-shrink:0;font-weight:700;margin-top:1px;}
+.prod-card.p1 .prod-card-includes li::before{color:#3DB87A;}
+.prod-card.p2 .prod-card-includes li::before{color:var(--gold);}
+.prod-card.p3 .prod-card-includes li::before{color:var(--blue2);}
+
+.prod-card-price{margin-bottom:20px;}
+.prod-card-price-val{font-family:'DM Serif Display',serif;font-size:32px;color:var(--gold2);}
+.prod-card-price-note{font-size:12px;color:var(--text2);margin-top:2px;}
+
+.prod-card-btn{
+  display:block;width:100%;padding:14px;border-radius:10px;
+  font-size:14px;font-weight:700;text-align:center;
+  text-decoration:none;cursor:pointer;font-family:'DM Sans',sans-serif;
+  transition:all .2s;border:none;
+}
+.prod-card.p1 .prod-card-btn{background:rgba(61,184,122,.15);color:#3DB87A;border:1px solid rgba(61,184,122,.3);}
+.prod-card.p1 .prod-card-btn:hover{background:#3DB87A;color:var(--navy);}
+.prod-card.p2 .prod-card-btn{background:linear-gradient(135deg,var(--gold),var(--gold3));color:var(--navy);}
+.prod-card.p2 .prod-card-btn:hover{box-shadow:0 6px 20px rgba(201,168,76,.45);}
+.prod-card.p3 .prod-card-btn{background:rgba(96,165,250,.15);color:var(--blue2);border:1px solid rgba(96,165,250,.3);}
+.prod-card.p3 .prod-card-btn:hover{background:var(--blue2);color:var(--navy);}
+
+/* ══════════════════════════════
+   EBOOK GRÁTIS
+══════════════════════════════ */
+#ebook-gratis{
+  padding:100px 20px;
+  background:var(--navy2);
+  border-top:1px solid var(--border);
+}
+.ebook-inner{max-width:640px;margin:0 auto;text-align:center;}
+.ebook-cover{
+  width:180px;height:240px;margin:0 auto 40px;
+  background:linear-gradient(135deg,var(--navy3),var(--navy4));
+  border:1px solid rgba(201,168,76,.3);border-radius:8px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:20px;position:relative;overflow:hidden;
+  box-shadow:8px 8px 0 rgba(201,168,76,.15);
+}
+.ebook-cover::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:4px;
+  background:linear-gradient(90deg,var(--gold),var(--gold3));
+}
+.ebook-cover-num{font-family:'DM Serif Display',serif;font-size:52px;color:var(--gold);line-height:1;}
+.ebook-cover-txt{font-size:11px;color:var(--text2);text-align:center;line-height:1.5;margin-top:8px;}
+.ebook-cover-brand{font-size:9px;color:var(--gold3);letter-spacing:1px;text-transform:uppercase;margin-top:12px;}
+
+.ebook-tag{
+  display:inline-flex;align-items:center;gap:6px;
+  background:rgba(61,184,122,.1);border:1px solid rgba(61,184,122,.25);
+  border-radius:20px;padding:4px 14px;font-size:12px;font-weight:600;
+  color:#3DB87A;letter-spacing:.4px;margin-bottom:20px;
+}
+
+.ebook-title{font-family:'DM Serif Display',serif;font-size:clamp(22px,4vw,32px);color:#FFF;line-height:1.3;margin-bottom:14px;}
+.ebook-desc{font-size:15px;color:var(--text2);line-height:1.75;margin-bottom:36px;}
+
+.ebook-form{display:flex;flex-direction:column;gap:10px;max-width:420px;margin:0 auto 16px;}
+.ebook-input{
+  background:var(--navy3);border:1px solid var(--border);border-radius:10px;
+  padding:14px 18px;font-size:14px;color:var(--text);
+  font-family:'DM Sans',sans-serif;outline:none;transition:border-color .2s;
+}
+.ebook-input:focus{border-color:var(--gold3);}
+.ebook-input::placeholder{color:var(--text2);}
+
+.btn-ebook{
+  width:100%;padding:16px;
+  background:linear-gradient(135deg,var(--gold),var(--gold3));
+  border:none;border-radius:10px;font-size:15px;font-weight:700;
+  color:var(--navy);cursor:pointer;font-family:'DM Sans',sans-serif;
+  transition:all .25s;animation:glow 3s ease-in-out infinite;
+}
+.btn-ebook:hover{transform:translateY(-1px);box-shadow:0 6px 24px rgba(201,168,76,.5);}
+.btn-ebook:disabled{opacity:.7;cursor:default;animation:none;}
+
+.ebook-privacy{font-size:11px;color:var(--text2);margin-top:6px;}
+.ebook-success{
+  display:none;background:rgba(61,184,122,.1);border:1px solid rgba(61,184,122,.3);
+  border-radius:12px;padding:20px;text-align:center;animation:fadeIn .4s ease;
+}
+.ebook-success p{font-size:14px;color:#3DB87A;line-height:1.6;}
+
+/* ══════════════════════════════
+   FOOTER
+══════════════════════════════ */
+footer{
+  background:var(--navy);border-top:1px solid var(--border);
+  padding:32px 20px;text-align:center;
+}
+footer p{font-size:12px;color:var(--text2);line-height:1.8;max-width:600px;margin:0 auto;}
+
+/* ══════════════════════════════
+   NAV
+══════════════════════════════ */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  padding:14px 24px;display:flex;align-items:center;justify-content:space-between;
+  background:rgba(8,15,28,.92);backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--border);
+}
+.nav-logo{
+  font-family:'DM Serif Display',serif;font-size:17px;color:var(--gold2);
+  text-decoration:none;
+}
+.nav-links{display:flex;gap:28px;align-items:center;}
+.nav-link{font-size:13px;color:var(--text2);text-decoration:none;transition:color .2s;}
+.nav-link:hover{color:var(--gold2);}
+.nav-btn{
+  padding:8px 18px;background:linear-gradient(135deg,var(--gold),var(--gold3));
+  border-radius:8px;font-size:13px;font-weight:700;color:var(--navy);
+  text-decoration:none;transition:all .2s;
+}
+.nav-btn:hover{box-shadow:0 4px 14px rgba(201,168,76,.4);}
+@media(max-width:600px){
+  .nav-links{display:none;}
+}
+
+/* Dots typing */
+.typing{display:flex;gap:4px;align-items:center;justify-content:center;}
+.typing .d{width:7px;height:7px;border-radius:50%;background:var(--gold);}
+.typing .d:nth-child(1){animation:pulse 1.2s .0s infinite;}
+.typing .d:nth-child(2){animation:pulse 1.2s .2s infinite;}
+.typing .d:nth-child(3){animation:pulse 1.2s .4s infinite;}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#">Previdência Sem Complicação</a>
+  <div class="nav-links">
+    <a class="nav-link" href="#simulador">Simulador</a>
+    <a class="nav-link" href="#produtos">Produtos</a>
+    <a class="nav-link" href="#ebook-gratis">Ebook grátis</a>
+    <a class="nav-btn" href="#simulador">Simular agora</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" style="padding-top:120px;">
+  <div class="hero-inner">
+    <div class="hero-pill">🏛️ &nbsp;Previdência para Servidores Públicos</div>
+    <h1 class="hero-title">Descubra qual fundo<br>é certo para <em>você</em></h1>
+    <p class="hero-sub">Análise especializada dos 30 melhores fundos BTG para servidores públicos. Simule sua carteira ideal em 60 segundos.</p>
+    <div class="hero-stats">
+      <div class="hero-stat"><div class="hero-stat-n">30</div><div class="hero-stat-l">fundos analisados</div></div>
+      <div class="hero-stat"><div class="hero-stat-n">60</div><div class="hero-stat-l">documentos</div></div>
+      <div class="hero-stat"><div class="hero-stat-n">12</div><div class="hero-stat-l">carteiras modelo</div></div>
+      <div class="hero-stat"><div class="hero-stat-n">4</div><div class="hero-stat-l">perfis de servidor</div></div>
+    </div>
+    <div class="hero-cta">
+      <a class="btn-hero primary" href="#simulador">⚡ Simular minha carteira</a>
+      <a class="btn-hero secondary" href="#produtos">Ver produtos →</a>
+    </div>
+  </div>
+</section>
+
+<!-- SIMULADOR -->
+<section id="simulador">
+  <div class="sim-inner">
+    <div class="section-eyebrow">Calculadora de Perfil</div>
+    <h2 class="section-title">Qual é a sua carteira ideal?</h2>
+    <p class="section-sub">Preencha os campos abaixo e a IA analisa seu perfil e recomenda a alocação certa para o seu momento.</p>
+
+    <div class="sim-card">
+
+      <!-- FORM -->
+      <div id="sim-form">
+        <div class="sim-grid">
+
+          <div class="sim-field">
+            <label>Anos até a aposentadoria</label>
+            <div class="slider-wrap">
+              <div class="slider-val" id="anos-val">20 anos</div>
+              <input type="range" id="anos" min="1" max="40" value="20"
+                oninput="document.getElementById('anos-val').textContent=this.value+(this.value==1?' ano':' anos')">
+            </div>
+            <div class="field-hint">Arraste para selecionar</div>
+          </div>
+
+          <div class="sim-field">
+            <label>Tolerância ao risco</label>
+            <div class="risco-btns">
+              <button class="risco-btn conservador" onclick="setRisco('conservador',this)">Conservador</button>
+              <button class="risco-btn moderado active" onclick="setRisco('moderado',this)">Moderado</button>
+              <button class="risco-btn arrojado" onclick="setRisco('arrojado',this)">Arrojado</button>
+            </div>
+            <div class="field-hint" id="risco-hint">Aceita alguma oscilação por mais retorno</div>
+          </div>
+
+          <div class="sim-field">
+            <label>Saldo atual na previdência</label>
+            <input class="money-input" type="text" id="saldo" placeholder="R$ 0,00"
+              oninput="maskMoney(this)">
+            <div class="field-hint">Pode ser zero se estiver começando</div>
+          </div>
+
+          <div class="sim-field">
+            <label>Aporte mensal</label>
+            <input class="money-input" type="text" id="aporte" placeholder="R$ 0,00"
+              oninput="maskMoney(this)">
+            <div class="field-hint">Quanto você investe por mês</div>
+          </div>
+
+        </div>
+
+        <button class="btn-calcular" id="btn-calc" onclick="calcular()">
+          ⚡ Analisar meu perfil e gerar carteira
+        </button>
+      </div>
+
+      <!-- LOADING -->
+      <div class="sim-loading" id="sim-loading">
+        <div class="sim-spinner"></div>
+        <p>Analisando seu perfil e gerando a carteira ideal…</p>
+      </div>
+
+      <!-- RESULTADO -->
+      <div class="sim-result" id="sim-result">
+
+        <div class="result-profile" id="result-profile">
+          <div class="result-profile-icon" id="result-icon">📊</div>
+          <div>
+            <div class="result-profile-label">Seu perfil de investidor</div>
+            <div class="result-profile-name" id="result-profile-name">—</div>
+            <div class="result-profile-desc" id="result-profile-desc">—</div>
+          </div>
+        </div>
+
+        <div class="alloc-section">
+          <div class="alloc-title">Alocação recomendada</div>
+          <div class="alloc-bars" id="alloc-bars"></div>
+        </div>
+
+        <div class="result-analysis" id="result-analysis"></div>
+
+        <div class="result-ctas">
+          <div class="prod-cta ebook">
+            <div class="prod-cta-icon">📘</div>
+            <div class="prod-cta-tag">Fundamento</div>
+            <div class="prod-cta-name">Guia Prático de IR para Servidores</div>
+            <div class="prod-cta-desc">PGBL vs VGBL, regra dos 12%, tabela regressiva e estratégia de aportes com exemplos reais.</div>
+            <a class="prod-cta-btn" href="https://hotmart.com/pt-br/marketplace/produtos/guia-pratico-do-imposto-de-renda-para-servidores-publicos/W104305732D?sck=HOTMART_PRODUCT_PAGE" target="_blank">Acessar o guia →</a>
+          </div>
+          <div class="prod-cta analise">
+            <div class="prod-cta-icon">📊</div>
+            <div class="prod-cta-tag">Principal</div>
+            <div class="prod-cta-name">Análise dos 30 Fundos BTG</div>
+            <div class="prod-cta-desc">60 documentos — análise técnica e simplificada de cada fundo com nota e veredicto por perfil.</div>
+            <a class="prod-cta-btn" href="https://hotmart.com/pt-br/marketplace/produtos/analise-completa-os-30-melhores-fundos-de-previdencia-btg-para-servidores-publicos/P104894580P" target="_blank">Ver análise completa →</a>
+          </div>
+          <div class="prod-cta carteira">
+            <div class="prod-cta-icon">🎯</div>
+            <div class="prod-cta-tag">Carteira</div>
+            <div class="prod-cta-name">Carteiras Recomendadas BTG</div>
+            <div class="prod-cta-desc">12 carteiras modelo + simulador. A alocação exata por fundo para o seu perfil.</div>
+            <a class="prod-cta-btn" href="LINK_CARTEIRA_HOTMART" target="_blank">Ver minha carteira →</a>
+          </div>
+        </div>
+
+        <button class="result-recalc" onclick="recalcular()">← Simular novamente com outros dados</button>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUTOS -->
+<section id="produtos">
+  <div class="prods-inner">
+    <div class="section-eyebrow">Materiais Completos</div>
+    <h2 class="section-title">Escolha o seu ponto de entrada</h2>
+    <p class="section-sub">Três produtos independentes — ou compre o bundle e leve tudo com desconto.</p>
+
+    <div class="prods-grid">
+
+      <div class="prod-card p1">
+        <span class="prod-card-badge">📘 Fundamento</span>
+        <div class="prod-card-icon">📘</div>
+        <div class="prod-card-name">Guia Prático de IR para Servidores</div>
+        <div class="prod-card-desc">Para o servidor que quer entender a base antes de escolher o fundo.</div>
+        <ul class="prod-card-includes">
+          <li>Ebook completo em PDF</li>
+          <li>Regra dos 12% com exemplos reais</li>
+          <li>PGBL vs VGBL na prática</li>
+          <li>Estratégia do 13º salário</li>
+          <li>Checklist + planilha + simulador IA</li>
+        </ul>
+        <div class="prod-card-price">
+          <div class="prod-card-price-val">R$ 27,90</div>
+          <div class="prod-card-price-note">Acesso imediato após pagamento</div>
+        </div>
+        <a class="prod-card-btn" href="https://hotmart.com/pt-br/marketplace/produtos/guia-pratico-do-imposto-de-renda-para-servidores-publicos/W104305732D?sck=HOTMART_PRODUCT_PAGE" target="_blank">Quero o guia →</a>
+      </div>
+
+      <div class="prod-card p2">
+        <span class="prod-card-badge">⭐ Mais vendido</span>
+        <div class="prod-card-icon">📊</div>
+        <div class="prod-card-name">Análise dos 30 Fundos BTG</div>
+        <div class="prod-card-desc">Para o servidor que já sabe o que é PGBL e quer escolher o fundo certo.</div>
+        <ul class="prod-card-includes">
+          <li>60 documentos — 2 por fundo</li>
+          <li>DOC1 técnico + DOC2 simplificado</li>
+          <li>Nota de 0 a 10 por metodologia própria</li>
+          <li>Veredicto por perfil de servidor</li>
+          <li>RF · Multimercado · Long Bias</li>
+        </ul>
+        <div class="prod-card-price">
+          <div class="prod-card-price-val">R$ 97</div>
+          <div class="prod-card-price-note">Acesso imediato após pagamento</div>
+        </div>
+        <a class="prod-card-btn" href="https://hotmart.com/pt-br/marketplace/produtos/analise-completa-os-30-melhores-fundos-de-previdencia-btg-para-servidores-publicos/P104894580P" target="_blank">Quero as análises →</a>
+      </div>
+
+      <div class="prod-card p3">
+        <span class="prod-card-badge">🎯 Carteiras</span>
+        <div class="prod-card-icon">🎯</div>
+        <div class="prod-card-name">Carteiras Recomendadas BTG</div>
+        <div class="prod-card-desc">Para o servidor que quer saber exatamente quanto colocar em cada fundo.</div>
+        <ul class="prod-card-includes">
+          <li>12 carteiras modelo prontas</li>
+          <li>3 níveis de risco × 4 perfis</li>
+          <li>Só gestão ativa — sem indexados</li>
+          <li>Simulador de perfil em planilha</li>
+          <li>Alocação % por fundo já definida</li>
+        </ul>
+        <div class="prod-card-price">
+          <div class="prod-card-price-val">R$ 27,90</div>
+          <div class="prod-card-price-note">Acesso imediato após pagamento</div>
+        </div>
+        <a class="prod-card-btn" href="LINK_CARTEIRA_HOTMART" target="_blank">Quero as carteiras →</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- EBOOK GRÁTIS -->
+<section id="ebook-gratis">
+  <div class="ebook-inner">
+
+    <div class="ebook-cover">
+      <div class="ebook-cover-num">5</div>
+      <div class="ebook-cover-txt">erros que servidores cometem na previdência privada</div>
+      <div class="ebook-cover-brand">Previdência Sem Complicação</div>
+    </div>
+
+    <div class="ebook-tag">🎁 100% gratuito</div>
+    <h2 class="ebook-title">Os 5 erros que servidores públicos cometem na previdência privada</h2>
+    <p class="ebook-desc">Descubra os erros mais caros — com o custo real de cada um e o que fazer no lugar. 8 páginas direto ao ponto.</p>
+
+    <div class="ebook-form">
+      <input class="ebook-input" type="text" id="ebook-nome" placeholder="Seu nome">
+      <input class="ebook-input" type="email" id="ebook-email" placeholder="Seu melhor e-mail">
+      <button class="btn-ebook" id="btn-ebook" onclick="baixarEbook()">Quero o ebook gratuito →</button>
+    </div>
+    <p class="ebook-privacy">🔒 Sem spam. Cancele quando quiser.</p>
+
+    <div class="ebook-success" id="ebook-success">
+      <p>✅ <strong>Ebook enviado!</strong><br>Verifique sua caixa de entrada — o PDF chegou por e-mail.<br><small style="color:var(--text2);">Não encontrou? Verifique o spam.</small></p>
+    </div>
+
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>
+    Previdência Sem Complicação · previdenciasemcomplicacao.com.br<br>
+    Análise educacional — não constitui consultoria financeira regulamentada.<br>
+    Dados históricos não garantem retorno futuro. Verifique lâminas atualizadas antes de aplicar.
+  </p>
+</footer>
+
+<script>
+// ══════════════════════════════
+// ⚙️  CONFIGURE AQUI
+// ══════════════════════════════
+// Chaves protegidas via Netlify Functions
+
+
+const EBOOK_URL   = window.location.origin + "/5_erros_previdencia_servidores.pdf";
+
+// ══════════════════════════════
+// ESTADO
+// ══════════════════════════════
+let riscoAtivo = "moderado";
+
+// ══════════════════════════════
+// HELPERS
+// ══════════════════════════════
+function setRisco(val, el){
+  riscoAtivo = val;
+  document.querySelectorAll(".risco-btn").forEach(b => b.classList.remove("active"));
+  el.classList.add("active");
+  const hints = {
+    conservador: "Prioriza segurança e previsibilidade",
+    moderado:    "Aceita alguma oscilação por mais retorno",
+    arrojado:    "Tolera volatilidade em busca de retorno maior"
+  };
+  document.getElementById("risco-hint").textContent = hints[val];
+}
+
+function maskMoney(el){
+  let v = el.value.replace(/\D/g,"");
+  if(!v){el.value="";return;}
+  v = (parseInt(v)/100).toLocaleString("pt-BR",{style:"currency",currency:"BRL"});
+  el.value = v;
+}
+
+function parseMoney(str){
+  return parseFloat(str.replace(/[R$\s.]/g,"").replace(",",".")) || 0;
+}
+
+// ══════════════════════════════
+// SIMULADOR
+// ══════════════════════════════
+const SYSTEM_SIM = `Você é um consultor especializado em previdência privada para servidores públicos brasileiros.
+
+REGRA ABSOLUTA: NUNCA cite nomes de fundos, gestoras ou códigos de fundos. Fale apenas em categorias genéricas.
+
+Dados recebidos do usuário: anos até aposentar, tolerância ao risco, saldo atual e aporte mensal.
+
+Responda EXCLUSIVAMENTE em JSON válido neste formato:
+{
+  "perfil": "Início de Carreira" | "Ascensão" | "Consolidação" | "Reta Final",
+  "icone": "🌱" | "📈" | "🏗️" | "🏁",
+  "descricao_perfil": "Uma frase descrevendo o momento do servidor",
+  "alocacao": [
+    {"categoria": "Renda Fixa conservadora", "percentual": 30, "cor": "#3DB87A"},
+    {"categoria": "Multimercado macro", "percentual": 40, "cor": "#C9A84C"},
+    {"categoria": "Ações long bias", "percentual": 30, "cor": "#F87171"}
+  ],
+  "analise": "2-3 frases explicando a lógica da carteira para este servidor específico, considerando saldo e aporte. Use linguagem direta e mencione o horizonte de tempo."
+}
+
+Regras de alocação por perfil:
+- Início de Carreira (20+a) Arrojado: RF 15%, MM 35%, Ações 50%
+- Início de Carreira (20+a) Moderado: RF 30%, MM 35%, Ações 35%
+- Início de Carreira (20+a) Conservador: RF 40%, MM 35%, LongBias 25%
+- Ascensão (10-20a) Arrojado: RF 30%, MM 40%, LongBias 30%
+- Ascensão (10-20a) Moderado: RF 40%, MM 40%, RV 20%
+- Ascensão (10-20a) Conservador: RF 55%, MM 30%, LongBias 15%
+- Consolidação (5-10a): RF 60-85%, MM conservador 15-40%
+- Reta Final (<5a): RF baixa volatilidade 70%, RF liquidez 30%
+
+Retorne SOMENTE o JSON. Sem texto antes ou depois. Sem markdown.`;
+
+async function calcular(){
+  const anos   = document.getElementById("anos").value;
+  const saldo  = document.getElementById("saldo").value || "R$ 0,00";
+  const aporte = document.getElementById("aporte").value || "R$ 0,00";
+
+  document.getElementById("sim-form").style.display    = "none";
+  document.getElementById("sim-loading").style.display = "flex";
+  document.getElementById("sim-result").style.display  = "none";
+
+  const prompt = `Anos até aposentar: ${anos}\nTolerância: ${riscoAtivo}\nSaldo atual: ${saldo}\nAporte mensal: ${aporte}`;
+
+  try{
+    const res = await fetch("/.netlify/functions/simular",{
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({prompt, system: SYSTEM_SIM})
+    });
+    const data  = await res.json();
+    const raw   = data.content || "";
+    const clean = raw.replace(/```json|```/g,"").trim();
+    const r     = JSON.parse(clean);
+    renderResult(r);
+  }catch(e){
+    console.error(e);
+    document.getElementById("sim-loading").style.display = "none";
+    document.getElementById("sim-form").style.display    = "block";
+    alert("Erro ao processar. Verifique sua conexão e tente novamente.");
+  }
+}
+
+function renderResult(r){
+  document.getElementById("sim-loading").style.display = "none";
+
+  document.getElementById("result-icon").textContent         = r.icone || "📊";
+  document.getElementById("result-profile-name").textContent = r.perfil;
+  document.getElementById("result-profile-desc").textContent = r.descricao_perfil;
+  document.getElementById("result-analysis").innerHTML       = r.analise.replace(/\*\*(.+?)\*\*/g,"<strong>$1</strong>");
+
+  // barras de alocação
+  const barsEl = document.getElementById("alloc-bars");
+  barsEl.innerHTML = "";
+  r.alocacao.forEach(item => {
+    const row = document.createElement("div");
+    row.className = "alloc-bar-row";
+    row.innerHTML = `
+      <div class="alloc-bar-label">${item.categoria}</div>
+      <div class="alloc-bar-track">
+        <div class="alloc-bar-fill" style="background:${item.cor};--tw:${item.percentual}%"></div>
+      </div>
+      <div class="alloc-bar-pct">${item.percentual}%</div>`;
+    barsEl.appendChild(row);
+  });
+
+  document.getElementById("sim-result").style.display = "block";
+
+  // animar barras
+  setTimeout(()=>{
+    document.querySelectorAll(".alloc-bar-fill").forEach(el=>{
+      el.style.width = el.style.getPropertyValue("--tw") || "0%";
+    });
+  }, 100);
+}
+
+function recalcular(){
+  document.getElementById("sim-result").style.display = "none";
+  document.getElementById("sim-form").style.display   = "block";
+}
+
+// ══════════════════════════════
+// EBOOK GRÁTIS
+// ══════════════════════════════
+async function baixarEbook(){
+  const nome  = document.getElementById("ebook-nome").value.trim();
+  const email = document.getElementById("ebook-email").value.trim();
+  if(!email){alert("Digite seu e-mail para receber o ebook 😊");return;}
+
+  const btn = document.getElementById("btn-ebook");
+  btn.textContent = "Enviando...";
+  btn.disabled = true;
+
+  try{
+    // Salva contato e envia ebook via function segura
+    await fetch("/.netlify/functions/enviar-ebook",{
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({email, nome, ebookUrl: EBOOK_URL,
+        emailData:{
+        sender:{name:"Previdência Sem Complicação",email:BREVO_FROM},
+        to:[{email,name:nome||"Servidor"}],
+        subject:"📘 Seu ebook chegou — Os 5 erros na previdência privada",
+        htmlContent:`
+<div style="background:#080F1C;padding:40px 20px;font-family:Arial,sans-serif;">
+  <div style="max-width:520px;margin:0 auto;background:#0D1829;border-radius:16px;overflow:hidden;border:1px solid #1C304A;">
+    <div style="background:linear-gradient(90deg,#C9A84C,#7A5E1A);height:5px;"></div>
+    <div style="padding:36px 32px;">
+      <p style="color:#C9A84C;font-size:11px;font-weight:bold;letter-spacing:2px;margin:0 0 10px;">PREVIDÊNCIA SEM COMPLICAÇÃO</p>
+      <h1 style="color:#EDD898;font-size:22px;margin:0 0 14px;line-height:1.35;">
+        ${nome ? 'Olá, '+nome+'!' : 'Olá!'} Seu ebook chegou 📘
+      </h1>
+      <p style="color:#6E8BA8;font-size:14px;line-height:1.75;margin:0 0 28px;">
+        Clique no botão abaixo para baixar o guia <strong style="color:#C4D0DE;">Os 5 erros que servidores públicos cometem na previdência privada</strong>. São 8 páginas direto ao ponto.
+      </p>
+      <a href="${EBOOK_URL}" style="display:block;background:linear-gradient(135deg,#C9A84C,#7A5E1A);color:#080F1C;text-decoration:none;font-weight:bold;font-size:15px;padding:16px 28px;border-radius:10px;text-align:center;margin-bottom:28px;">
+        📥 Baixar o ebook agora
+      </a>
+      <hr style="border:none;border-top:1px solid #1C304A;margin:24px 0;">
+      <p style="color:#1C304A;font-size:11px;line-height:1.6;margin:0;">
+        previdenciasemcomplicacao.com.br · Análise educacional, não constitui consultoria regulamentada.
+      </p>
+    </div>
+  </div>
+</div>`
+      })
+    });
+
+    document.querySelector(".ebook-form").style.display    = "none";
+    document.querySelector(".ebook-privacy").style.display = "none";
+    document.getElementById("ebook-success").style.display = "block";
+
+  }catch(e){
+    btn.textContent = "Quero o ebook gratuito →";
+    btn.disabled = false;
+    alert("Erro ao enviar. Tente novamente.");
+  }
+}
+</script>
+</body>
+</html>
