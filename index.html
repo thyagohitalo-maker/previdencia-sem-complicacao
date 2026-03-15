@@ -812,7 +812,7 @@ async function calcular(){
   const prompt = `Anos até aposentar: ${anos}\nTolerância: ${riscoAtivo}\nSaldo atual: ${saldo}\nAporte mensal: ${aporte}`;
 
   try{
-    const res = await fetch("/.netlify/functions/simular",{
+    const res = await fetch("https://simular-perfil.thyago-hitalo.workers.dev",{
       method:"POST",
       headers:{"Content-Type":"application/json"},
       body:JSON.stringify({prompt, system: SYSTEM_SIM})
@@ -881,7 +881,7 @@ async function baixarEbook(){
   btn.disabled = true;
 
   try{
-    await fetch("/.netlify/functions/enviar-ebook",{
+    await fetch("https://enviar-ebook.thyago-hitalo.workers.dev",{
       method:"POST",
       headers:{"Content-Type":"application/json"},
       body:JSON.stringify({email, nome, ebookUrl: EBOOK_URL})
