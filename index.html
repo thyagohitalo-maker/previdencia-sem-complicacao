@@ -594,14 +594,14 @@ nav{
             <div class="prod-cta-tag">Fundamento</div>
             <div class="prod-cta-name">Guia Prático de IR para Servidores</div>
             <div class="prod-cta-desc">PGBL vs VGBL, regra dos 12%, tabela regressiva e estratégia de aportes com exemplos reais.</div>
-            <a class="prod-cta-btn" href="https://hotmart.com/pt-br/marketplace/produtos/guia-pratico-do-imposto-de-renda-para-servidores-publicos/W104305732D?sck=HOTMART_PRODUCT_PAGE" target="_blank">Acessar o guia →</a>
+            <a class="prod-cta-btn" href="LINK_EBOOK_PAGO_HOTMART" target="_blank">Acessar o guia →</a>
           </div>
           <div class="prod-cta analise">
             <div class="prod-cta-icon">📊</div>
             <div class="prod-cta-tag">Principal</div>
             <div class="prod-cta-name">Análise dos 30 Fundos BTG</div>
             <div class="prod-cta-desc">60 documentos — análise técnica e simplificada de cada fundo com nota e veredicto por perfil.</div>
-            <a class="prod-cta-btn" href="https://hotmart.com/pt-br/marketplace/produtos/analise-completa-os-30-melhores-fundos-de-previdencia-btg-para-servidores-publicos/P104894580P" target="_blank">Ver análise completa →</a>
+            <a class="prod-cta-btn" href="LINK_ANALISE_BTG_HOTMART" target="_blank">Ver análise completa →</a>
           </div>
           <div class="prod-cta carteira">
             <div class="prod-cta-icon">🎯</div>
@@ -644,7 +644,7 @@ nav{
           <div class="prod-card-price-val">R$ 27,90</div>
           <div class="prod-card-price-note">Acesso imediato após pagamento</div>
         </div>
-        <a class="prod-card-btn" href="https://hotmart.com/pt-br/marketplace/produtos/guia-pratico-do-imposto-de-renda-para-servidores-publicos/W104305732D?sck=HOTMART_PRODUCT_PAGE" target="_blank">Quero o guia →</a>
+        <a class="prod-card-btn" href="LINK_EBOOK_PAGO_HOTMART" target="_blank">Quero o guia →</a>
       </div>
 
       <div class="prod-card p2">
@@ -663,7 +663,7 @@ nav{
           <div class="prod-card-price-val">R$ 97</div>
           <div class="prod-card-price-note">Acesso imediato após pagamento</div>
         </div>
-        <a class="prod-card-btn" href="https://hotmart.com/pt-br/marketplace/produtos/analise-completa-os-30-melhores-fundos-de-previdencia-btg-para-servidores-publicos/P104894580P" target="_blank">Quero as análises →</a>
+        <a class="prod-card-btn" href="LINK_ANALISE_BTG_HOTMART" target="_blank">Quero as análises →</a>
       </div>
 
       <div class="prod-card p3">
@@ -881,38 +881,10 @@ async function baixarEbook(){
   btn.disabled = true;
 
   try{
-    // Salva contato e envia ebook via function segura
     await fetch("/.netlify/functions/enviar-ebook",{
       method:"POST",
       headers:{"Content-Type":"application/json"},
-      body:JSON.stringify({email, nome, ebookUrl: EBOOK_URL,
-        emailData:{
-        sender:{name:"Previdência Sem Complicação",email:BREVO_FROM},
-        to:[{email,name:nome||"Servidor"}],
-        subject:"📘 Seu ebook chegou — Os 5 erros na previdência privada",
-        htmlContent:`
-<div style="background:#080F1C;padding:40px 20px;font-family:Arial,sans-serif;">
-  <div style="max-width:520px;margin:0 auto;background:#0D1829;border-radius:16px;overflow:hidden;border:1px solid #1C304A;">
-    <div style="background:linear-gradient(90deg,#C9A84C,#7A5E1A);height:5px;"></div>
-    <div style="padding:36px 32px;">
-      <p style="color:#C9A84C;font-size:11px;font-weight:bold;letter-spacing:2px;margin:0 0 10px;">PREVIDÊNCIA SEM COMPLICAÇÃO</p>
-      <h1 style="color:#EDD898;font-size:22px;margin:0 0 14px;line-height:1.35;">
-        ${nome ? 'Olá, '+nome+'!' : 'Olá!'} Seu ebook chegou 📘
-      </h1>
-      <p style="color:#6E8BA8;font-size:14px;line-height:1.75;margin:0 0 28px;">
-        Clique no botão abaixo para baixar o guia <strong style="color:#C4D0DE;">Os 5 erros que servidores públicos cometem na previdência privada</strong>. São 8 páginas direto ao ponto.
-      </p>
-      <a href="${EBOOK_URL}" style="display:block;background:linear-gradient(135deg,#C9A84C,#7A5E1A);color:#080F1C;text-decoration:none;font-weight:bold;font-size:15px;padding:16px 28px;border-radius:10px;text-align:center;margin-bottom:28px;">
-        📥 Baixar o ebook agora
-      </a>
-      <hr style="border:none;border-top:1px solid #1C304A;margin:24px 0;">
-      <p style="color:#1C304A;font-size:11px;line-height:1.6;margin:0;">
-        previdenciasemcomplicacao.com.br · Análise educacional, não constitui consultoria regulamentada.
-      </p>
-    </div>
-  </div>
-</div>`
-      })
+      body:JSON.stringify({email, nome, ebookUrl: EBOOK_URL})
     });
 
     document.querySelector(".ebook-form").style.display    = "none";
@@ -926,5 +898,3 @@ async function baixarEbook(){
   }
 }
 </script>
-</body>
-</html>
