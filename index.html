@@ -501,6 +501,15 @@ nav{
   font-family:'DM Serif Display',serif;font-size:22px;color:var(--gold2);
   display:block;margin-bottom:8px;
 }
+.anos-row{display:flex;align-items:center;gap:12px;margin-bottom:8px;}
+.anos-num{
+  width:72px;background:var(--navy3);border:1px solid var(--border);
+  border-radius:10px;padding:8px 12px;font-size:18px;font-weight:700;
+  color:var(--gold2);font-family:'DM Serif Display',serif;outline:none;
+  text-align:center;transition:border-color .2s;
+}
+.anos-num:focus{border-color:var(--gold3);}
+.anos-label{font-size:13px;color:var(--text2);}
 
 /* Taxa botões */
 .taxa-btns{display:flex;gap:8px;}
@@ -556,10 +565,10 @@ nav{
   <div class="hero-inner">
     <div class="hero-pill">🏛️ &nbsp;Previdência para Servidores Públicos</div>
     <h1 class="hero-title">Descubra qual fundo<br>é certo para <em>você</em></h1>
-    <p class="hero-sub">Análise especializada dos 30 melhores fundos BTG para servidores públicos. Simule sua carteira ideal em 60 segundos.</p>
+    <p class="hero-sub">Análise especializada dos melhores fundos de previdência para servidores públicos. Simule sua carteira ideal em 60 segundos.</p>
     <div class="hero-stats">
-      <div class="hero-stat"><div class="hero-stat-n">30</div><div class="hero-stat-l">fundos analisados</div></div>
-      <div class="hero-stat"><div class="hero-stat-n">60</div><div class="hero-stat-l">documentos</div></div>
+      <div class="hero-stat"><div class="hero-stat-n">+60</div><div class="hero-stat-l">fundos analisados</div></div>
+      <div class="hero-stat"><div class="hero-stat-n">2</div><div class="hero-stat-l">docs por fundo</div></div>
       <div class="hero-stat"><div class="hero-stat-n">12</div><div class="hero-stat-l">carteiras modelo</div></div>
       <div class="hero-stat"><div class="hero-stat-n">4</div><div class="hero-stat-l">perfis de servidor</div></div>
     </div>
@@ -660,18 +669,11 @@ nav{
           <div class="prod-cta analise">
             <div class="prod-cta-icon">📊</div>
             <div class="prod-cta-tag">Principal</div>
-            <div class="prod-cta-name">Análise dos 30 Fundos BTG</div>
-            <div class="prod-cta-desc">60 documentos — análise técnica e simplificada de cada fundo com nota e veredicto por perfil.</div>
+            <div class="prod-cta-name">Análise Completa de Fundos de Previdência</div>
+            <div class="prod-cta-desc">Análise técnica e simplificada de cada fundo com nota e veredicto por perfil de servidor.</div>
             <a class="prod-cta-btn" href="https://hotmart.com/pt-br/marketplace/produtos/analise-completa-os-30-melhores-fundos-de-previdencia-btg-para-servidores-publicos/P104894580P" target="_blank">Ver análise completa →</a>
           </div>
-          <div class="prod-cta carteira">
-            <div class="prod-cta-icon">🎯</div>
-            <div class="prod-cta-tag">Carteira</div>
-            <div class="prod-cta-name">Carteiras Recomendadas BTG</div>
-            <div class="prod-cta-desc">12 carteiras modelo + simulador. A alocação exata por fundo para o seu perfil.</div>
-            <a class="prod-cta-btn" href="https://go.hotmart.com/M104914975F" target="_blank">Ver minha carteira →</a>
-          </div>
-        </div>
+          
 
         <button class="result-recalc" onclick="recalcular()">← Simular novamente com outros dados</button>
 
@@ -708,9 +710,13 @@ nav{
 
           <div class="calc-field">
             <label>Anos até aposentar</label>
-            <span class="slider-val" id="calc-anos-val">20 anos</span>
+            <div class="anos-row">
+              <input class="anos-num" type="number" id="calc-anos-num" min="1" max="40" value="20"
+                oninput="syncAnos('num')">
+              <span class="anos-label">anos</span>
+            </div>
             <input type="range" id="calc-anos" min="1" max="40" value="20"
-              oninput="document.getElementById('calc-anos-val').textContent=this.value+(this.value==1?' ano':' anos');calcular_patrimonio()">
+              oninput="syncAnos('slider')">
           </div>
 
           <div class="calc-field">
@@ -795,17 +801,17 @@ nav{
       <div class="prod-card p2">
         <span class="prod-card-badge">⭐ Mais vendido</span>
         <div class="prod-card-icon">📊</div>
-        <div class="prod-card-name">Análise dos 30 Fundos BTG</div>
-        <div class="prod-card-desc">Para o servidor que já sabe o que é PGBL e quer escolher o fundo certo.</div>
+        <div class="prod-card-name">Análise Completa de Fundos de Previdência</div>
+        <div class="prod-card-desc">Os melhores fundos de previdência disponíveis para servidores públicos — com análise técnica completa e análise simplificada por fundo.</div>
         <ul class="prod-card-includes">
-          <li>60 documentos — 2 por fundo</li>
-          <li>DOC1 técnico + DOC2 simplificado</li>
+          <li>Análise Técnica (DOC1) — profundidade completa por fundo</li>
+          <li>Análise Simplificada (DOC2) — linguagem direta, 1 página</li>
           <li>Nota de 0 a 10 por metodologia própria</li>
           <li>Veredicto por perfil de servidor</li>
           <li>RF · Multimercado · Long Bias</li>
         </ul>
         <div class="prod-card-price">
-          <div class="prod-card-price-val">R$ 97</div>
+          <div class="prod-card-price-val">R$ 147</div>
           <div class="prod-card-price-note">Acesso imediato após pagamento</div>
         </div>
         <a class="prod-card-btn" href="https://hotmart.com/pt-br/marketplace/produtos/analise-completa-os-30-melhores-fundos-de-previdencia-btg-para-servidores-publicos/P104894580P" target="_blank">Quero as análises →</a>
@@ -814,11 +820,11 @@ nav{
       <div class="prod-card p3">
         <span class="prod-card-badge">🎯 Carteiras</span>
         <div class="prod-card-icon">🎯</div>
-        <div class="prod-card-name">Carteiras Recomendadas BTG</div>
-        <div class="prod-card-desc">Para o servidor que quer saber exatamente quanto colocar em cada fundo.</div>
+        <div class="prod-card-name">Carteiras Recomendadas por Perfil</div>
+        <div class="prod-card-desc">Para o servidor que quer saber exatamente quanto colocar em cada fundo — sem montar do zero.</div>
         <ul class="prod-card-includes">
-          <li>12 carteiras modelo prontas</li>
-          <li>3 níveis de risco × 4 perfis</li>
+          <li>Carteiras modelo prontas por perfil</li>
+          <li>3 níveis de risco × 4 perfis de servidor</li>
           <li>Só gestão ativa — sem indexados</li>
           <li>Simulador de perfil em planilha</li>
           <li>Alocação % por fundo já definida</li>
@@ -1054,10 +1060,24 @@ function setTaxa(val, el) {
   calcular_patrimonio();
 }
 
+function syncAnos(source) {
+  const num    = document.getElementById("calc-anos-num");
+  const slider = document.getElementById("calc-anos");
+  if (source === 'num') {
+    let v = parseInt(num.value) || 1;
+    v = Math.min(Math.max(v, 1), 40);
+    num.value   = v;
+    slider.value = v;
+  } else {
+    num.value = slider.value;
+  }
+  calcular_patrimonio();
+}
+
 function calcular_patrimonio() {
   const saldo  = parseMoney(document.getElementById("calc-saldo").value) || 0;
   const aporte = parseMoney(document.getElementById("calc-aporte").value) || 0;
-  const anos   = parseInt(document.getElementById("calc-anos").value) || 0;
+  const anos   = parseInt(document.getElementById("calc-anos-num").value) || 0;
   const taxa   = taxaAnual / 100;
   const meses  = anos * 12;
   const taxaMensal = Math.pow(1 + taxa, 1/12) - 1;
