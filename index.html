@@ -545,6 +545,100 @@ nav{
   border-radius:12px;padding:16px;font-size:13px;color:var(--text2);line-height:1.65;
 }
 .result-insight strong{color:var(--gold2);}
+
+/* ══════════════════════════════
+   SIMULADOR IR
+══════════════════════════════ */
+#simulador-ir{
+  padding:100px 20px;
+  background:linear-gradient(180deg, var(--navy2) 0%, var(--navy) 100%);
+  border-top:1px solid var(--border);
+}
+.ir-inner{max-width:720px;margin:0 auto;}
+
+.ir-chat{
+  background:rgba(18,31,53,.8);border:1px solid var(--border);
+  border-radius:20px;overflow:hidden;backdrop-filter:blur(12px);
+  margin-top:48px;
+}
+.ir-messages{padding:28px 28px 0;display:flex;flex-direction:column;gap:16px;min-height:180px;}
+
+.ir-msg{display:flex;gap:12px;animation:fadeUp .35s ease;}
+.ir-msg.bot{justify-content:flex-start;}
+.ir-msg.user{justify-content:flex-end;}
+
+.ir-avatar{
+  width:34px;height:34px;border-radius:9px;flex-shrink:0;
+  background:linear-gradient(135deg,var(--gold),var(--gold3));
+  display:flex;align-items:center;justify-content:center;font-size:16px;
+}
+.ir-bubble{
+  max-width:85%;padding:13px 16px;border-radius:14px;
+  font-size:14px;line-height:1.75;
+}
+.ir-bubble.bot{
+  background:rgba(26,45,71,.9);border:1px solid var(--border);
+  border-radius:4px 14px 14px 14px;color:var(--text);
+}
+.ir-bubble.bot strong{color:var(--gold2);}
+.ir-bubble.bot .highlight{
+  display:inline-block;background:rgba(201,168,76,.12);
+  border:1px solid rgba(201,168,76,.3);border-radius:8px;
+  padding:2px 10px;color:var(--gold);font-weight:700;
+}
+.ir-bubble.user{
+  background:linear-gradient(135deg,#1B2E4A,#152336);
+  border:1px solid #2A4A6E;border-radius:14px 4px 14px 14px;
+  color:var(--text);
+}
+
+/* resultado card */
+.ir-result-card{
+  background:linear-gradient(135deg,rgba(201,168,76,.13),rgba(201,168,76,.04));
+  border:1px solid rgba(201,168,76,.35);border-radius:14px;
+  padding:20px 22px;margin:4px 0;
+}
+.ir-result-row{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:8px 0;border-bottom:1px solid rgba(201,168,76,.12);
+}
+.ir-result-row:last-child{border-bottom:none;padding-bottom:0;}
+.ir-result-label{font-size:13px;color:var(--text2);}
+.ir-result-val{font-family:'DM Serif Display',serif;font-size:20px;color:var(--gold2);font-weight:700;}
+.ir-result-val.big{font-size:28px;color:var(--gold);}
+.ir-result-val.green{color:var(--green2);}
+
+/* input area */
+.ir-input-area{padding:20px 28px 24px;border-top:1px solid var(--border);margin-top:16px;}
+.ir-input-row{
+  display:flex;gap:10px;align-items:flex-end;
+  background:rgba(12,21,36,.8);border:1px solid var(--border);
+  border-radius:12px;padding:10px 14px;transition:border-color .2s;
+}
+.ir-input-row:focus-within{border-color:rgba(201,168,76,.35);}
+.ir-input-row input{
+  flex:1;background:transparent;border:none;outline:none;
+  color:var(--text);font-size:15px;font-family:'DM Serif Display',serif;
+}
+.ir-input-row input::placeholder{color:var(--muted);font-family:'DM Sans',sans-serif;font-size:14px;}
+.ir-send{
+  width:36px;height:36px;border:none;border-radius:8px;
+  background:linear-gradient(135deg,var(--gold),var(--gold3));
+  font-size:16px;cursor:pointer;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;transition:all .2s;
+}
+.ir-send:hover{box-shadow:0 3px 10px rgba(201,168,76,.4);}
+.ir-send:disabled{background:var(--muted);cursor:default;}
+
+.ir-chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px;}
+.ir-chip{
+  background:rgba(26,44,66,.7);border:1px solid var(--border);
+  border-radius:20px;padding:6px 14px;font-size:12px;color:var(--text2);
+  cursor:pointer;transition:all .2s;font-family:'DM Sans',sans-serif;
+}
+.ir-chip:hover{border-color:rgba(201,168,76,.4);color:var(--gold2);background:rgba(201,168,76,.07);}
+
+.ir-disclaimer{font-size:11px;color:var(--text2);text-align:center;margin-top:10px;opacity:.6;}
 </style>
 </head>
 <body>
@@ -553,7 +647,8 @@ nav{
 <nav>
   <a class="nav-logo" href="#">Previdência Sem Complicação</a>
   <div class="nav-links">
-    <a class="nav-link" href="#simulador">Simulador</a>
+    <a class="nav-link" href="#simulador-ir">Simulador IR</a>
+    <a class="nav-link" href="#simulador">Perfil</a>
     <a class="nav-link" href="#produtos">Produtos</a>
     <a class="nav-link" href="#ebook-gratis">Ebook grátis</a>
     <a class="nav-btn" href="#simulador">Simular agora</a>
@@ -682,6 +777,48 @@ nav{
   </div>
 </section>
 
+
+
+<!-- SIMULADOR IR -->
+<section id="simulador-ir">
+  <div class="ir-inner">
+    <div class="section-eyebrow">Simulador de IR</div>
+    <h2 class="section-title">Quanto você paga de IR<br>sem precisar?</h2>
+    <p class="section-sub">Digite seu salário bruto e veja a conta na hora — igual fizemos com o Lucas.</p>
+
+    <div class="ir-chat">
+      <div class="ir-messages" id="ir-messages">
+
+        <!-- Mensagem inicial fixa -->
+        <div class="ir-msg bot">
+          <div class="ir-avatar">💡</div>
+          <div class="ir-bubble bot">
+            <strong>R$ 3.168 por ano. R$ 264 por mês.</strong><br>
+            É o IR que o Lucas tava pagando sem precisar — só porque não tinha PGBL.<br><br>
+            Qual é o seu salário bruto? Me manda aqui que eu faço a conta pra você.
+          </div>
+        </div>
+
+      </div>
+
+      <div class="ir-input-area">
+        <div class="ir-input-row">
+          <input type="text" id="ir-input" placeholder="Ex: R$ 8.000,00"
+            oninput="maskMoney(this)" onkeydown="if(event.key==='Enter')irEnviar()">
+          <button class="ir-send" id="ir-send-btn" onclick="irEnviar()">→</button>
+        </div>
+        <div class="ir-chips" id="ir-chips">
+          <button class="ir-chip" onclick="irChip('R$ 4.000,00')">R$ 4.000</button>
+          <button class="ir-chip" onclick="irChip('R$ 6.000,00')">R$ 6.000</button>
+          <button class="ir-chip" onclick="irChip('R$ 8.000,00')">R$ 8.000</button>
+          <button class="ir-chip" onclick="irChip('R$ 12.000,00')">R$ 12.000</button>
+          <button class="ir-chip" onclick="irChip('R$ 15.000,00')">R$ 15.000</button>
+        </div>
+        <div class="ir-disclaimer">Cálculo estimado com base na tabela progressiva do IR 2025. Não constitui consultoria financeira.</div>
+      </div>
+    </div>
+  </div>
+</section>
 
 <!-- CALCULADORA -->
 <section id="calculadora">
@@ -1117,6 +1254,144 @@ function calcular_patrimonio() {
 
 function formatBRL(val) {
   return val.toLocaleString("pt-BR", { style: "currency", currency: "BRL", maximumFractionDigits: 0 });
+}
+
+// ══════════════════════════════
+// SIMULADOR IR
+// ══════════════════════════════
+let irRespondido = false;
+
+function irChip(val) {
+  document.getElementById("ir-input").value = val;
+  irEnviar();
+}
+
+function irEnviar() {
+  const input = document.getElementById("ir-input");
+  const val   = parseMoney(input.value);
+  if (!val || val < 100) return;
+
+  // Mostra mensagem do usuário
+  irAddMsg(formatBRL(val), "user");
+  input.value = "";
+
+  // Esconde chips
+  document.getElementById("ir-chips").style.display = "none";
+
+  // Pequeno delay para parecer natural
+  setTimeout(() => irCalcular(val), 600);
+}
+
+function irCalcular(salario) {
+  const salarioAnual  = salario * 13; // inclui 13o
+  const limiteDeducao = salarioAnual * 0.12;
+  const pgblMensal    = salario * 0.12;
+
+  // Alíquota estimada pelo salário
+  let aliquota = 0;
+  if (salario <= 2259.20) aliquota = 0;
+  else if (salario <= 2826.65) aliquota = 0.075;
+  else if (salario <= 3751.05) aliquota = 0.15;
+  else if (salario <= 4664.68) aliquota = 0.225;
+  else aliquota = 0.275;
+
+  const economiaAnual  = limiteDeducao * aliquota;
+  const economiaMensal = economiaAnual / 12;
+
+  if (aliquota === 0) {
+    irAddMsg(`Com salário de <strong>${formatBRL(salario)}</strong>, você está abaixo da faixa de tributação do IR — não paga IR na fonte. O PGBL não traz vantagem fiscal direto para você, mas o <strong>VGBL</strong> ainda pode fazer sentido para acúmulo com tributação somente no rendimento. Quer saber mais?`, "bot");
+    irAddCTA();
+    return;
+  }
+
+  const nomeExemplo = salario < 6000 ? "servidor de cargo médio" : salario < 12000 ? "servidor técnico" : "servidor de nível superior";
+
+  // Mensagem com resultado
+  setTimeout(() => {
+    irAddMsg(`Fiz a conta. Com salário de <strong>${formatBRL(salario)}</strong> e alíquota de <strong>${Math.round(aliquota*100)}%</strong>:`, "bot");
+  }, 0);
+
+  setTimeout(() => {
+    const card = `
+      <div class="ir-result-card">
+        <div class="ir-result-row">
+          <span class="ir-result-label">Aporte mensal no PGBL (12% do salário)</span>
+          <span class="ir-result-val">${formatBRL(pgblMensal)}</span>
+        </div>
+        <div class="ir-result-row">
+          <span class="ir-result-label">Limite de dedução anual</span>
+          <span class="ir-result-val">${formatBRL(limiteDeducao)}</span>
+        </div>
+        <div class="ir-result-row">
+          <span class="ir-result-label">IR economizado por mês</span>
+          <span class="ir-result-val green">${formatBRL(economiaMensal)}</span>
+        </div>
+        <div class="ir-result-row">
+          <span class="ir-result-label">IR economizado por ano</span>
+          <span class="ir-result-val big">${formatBRL(economiaAnual)}</span>
+        </div>
+      </div>`;
+    irAddBotRaw(card);
+  }, 800);
+
+  setTimeout(() => {
+    const anos20 = economiaAnual * 20;
+    irAddMsg(`Em 20 anos de carreira, só essa economia de IR representa <strong>${formatBRL(anos20)}</strong> — sem contar o rendimento desse dinheiro investido.<br><br>O PGBL é legal. É imposto que a lei permite você não pagar. A maioria dos servidores simplesmente não usa.`, "bot");
+  }, 1600);
+
+  setTimeout(() => {
+    irAddMsg(`O próximo passo é escolher o fundo certo para o seu perfil. O Guia Prático explica como fazer isso — PGBL vs VGBL, tabela regressiva e estratégia de aportes com exemplos reais.`, "bot");
+    irAddCTA();
+  }, 2400);
+}
+
+function irAddMsg(text, type) {
+  const wrap = document.getElementById("ir-messages");
+  const row  = document.createElement("div");
+  row.className = `ir-msg ${type}`;
+  if (type === "bot") {
+    row.innerHTML = `<div class="ir-avatar">💡</div><div class="ir-bubble bot">${text}</div>`;
+  } else {
+    row.innerHTML = `<div class="ir-bubble user">${text}</div>`;
+  }
+  wrap.appendChild(row);
+  wrap.scrollIntoView({behavior:"smooth",block:"end"});
+}
+
+function irAddBotRaw(html) {
+  const wrap = document.getElementById("ir-messages");
+  const row  = document.createElement("div");
+  row.className = "ir-msg bot";
+  row.innerHTML = `<div class="ir-avatar">💡</div><div class="ir-bubble bot">${html}</div>`;
+  wrap.appendChild(row);
+  wrap.scrollIntoView({behavior:"smooth",block:"end"});
+}
+
+function irAddCTA() {
+  const wrap = document.getElementById("ir-messages");
+  const row  = document.createElement("div");
+  row.className = "ir-msg bot";
+  row.innerHTML = `<div class="ir-avatar">💡</div><div class="ir-bubble bot">
+    <a href="https://hotmart.com/pt-br/marketplace/produtos/guia-pratico-do-imposto-de-renda-para-servidores-publicos/W104305732D?sck=HOTMART_PRODUCT_PAGE" target="_blank"
+       style="display:inline-block;background:linear-gradient(135deg,var(--gold),var(--gold3));color:var(--navy);font-weight:700;font-size:13px;padding:10px 20px;border-radius:8px;text-decoration:none;margin-top:4px;">
+      📘 Ver o Guia Prático →
+    </a>
+    &nbsp;
+    <button onclick="irReset()" style="background:transparent;border:1px solid var(--border);color:var(--text2);font-size:12px;padding:10px 16px;border-radius:8px;cursor:pointer;font-family:'DM Sans',sans-serif;margin-top:4px;">
+      Simular outro salário
+    </button>
+  </div>`;
+  wrap.appendChild(row);
+  wrap.scrollIntoView({behavior:"smooth",block:"end"});
+}
+
+function irReset() {
+  const wrap = document.getElementById("ir-messages");
+  // Remove all messages after the first
+  while (wrap.children.length > 1) {
+    wrap.removeChild(wrap.lastChild);
+  }
+  document.getElementById("ir-chips").style.display = "flex";
 }
 
 </script>
