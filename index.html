@@ -1606,8 +1606,17 @@ document.getElementById("popup-overlay").addEventListener("click", function(e){
   if (e.target === this) fecharPopup();
 });
 
-// Abre após 8 segundos
-setTimeout(abrirPopup, 8000);
+// Abre após 50% de scroll
+let popupScrolled = false;
+window.addEventListener("scroll", function() {
+  if (popupScrolled) return;
+  const scrolled = window.scrollY;
+  const total    = document.body.scrollHeight - window.innerHeight;
+  if (total > 0 && scrolled / total >= 0.5) {
+    popupScrolled = true;
+    abrirPopup();
+  }
+});
 
 async function baixarEbookPopup() {
   const nome  = document.getElementById("popup-nome").value.trim();
