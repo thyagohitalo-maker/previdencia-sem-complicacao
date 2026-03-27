@@ -1606,15 +1606,21 @@ document.getElementById("popup-overlay").addEventListener("click", function(e){
   if (e.target === this) fecharPopup();
 });
 
-// Abre após 50% de scroll
-let popupScrolled = false;
+// Abre após 30 segundos OU 40% de scroll — o que vier primeiro
+let popupDisparado = false;
+function dispararPopup() {
+  if (popupDisparado) return;
+  popupDisparado = true;
+  abrirPopup();
+}
+
+setTimeout(dispararPopup, 30000);
+
 window.addEventListener("scroll", function() {
-  if (popupScrolled) return;
   const scrolled = window.scrollY;
   const total    = document.body.scrollHeight - window.innerHeight;
-  if (total > 0 && scrolled / total >= 0.5) {
-    popupScrolled = true;
-    abrirPopup();
+  if (total > 0 && scrolled / total >= 0.4) {
+    dispararPopup();
   }
 });
 
