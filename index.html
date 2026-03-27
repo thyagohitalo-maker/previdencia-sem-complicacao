@@ -639,6 +639,93 @@ nav{
 .ir-chip:hover{border-color:rgba(201,168,76,.4);color:var(--gold2);background:rgba(201,168,76,.07);}
 
 .ir-disclaimer{font-size:11px;color:var(--text2);text-align:center;margin-top:10px;opacity:.6;}
+
+/* ══════════════════════════════
+   MOBILE — melhorias gerais
+══════════════════════════════ */
+@media(max-width:600px){
+
+  /* NAV */
+  nav{padding:12px 16px;}
+  .nav-logo{font-size:14px;}
+  .nav-links{display:none;}
+
+  /* HERO */
+  .hero{padding:90px 16px 60px;}
+  .hero-badge{font-size:11px;padding:5px 12px;margin-bottom:24px;}
+  .hero-title{font-size:32px;line-height:1.15;}
+  .hero-sub{font-size:14px;margin-bottom:32px;}
+  .hero-stats{flex-direction:column;border-radius:12px;}
+  .hero-stat{border-right:none;border-bottom:1px solid var(--border);padding:14px 16px;}
+  .hero-stat:last-child{border-bottom:none;}
+  .hero-stat-n{font-size:24px;}
+  .hero-cta{flex-direction:column;gap:10px;}
+  .btn-hero{width:100%;justify-content:center;padding:14px 20px;font-size:14px;}
+
+  /* SIMULADOR IR */
+  #simulador-ir{padding:60px 12px;}
+  .ir-inner{max-width:100%;}
+  .ir-messages{padding:20px 16px 0;}
+  .ir-bubble{font-size:13px;padding:11px 14px;}
+  .ir-input-area{padding:16px 16px 20px;}
+  .ir-chips{gap:6px;}
+  .ir-chip{font-size:11px;padding:5px 10px;}
+  .ir-result-card{padding:16px;}
+  .ir-result-val.big{font-size:22px;}
+
+  /* SIMULADOR PERFIL */
+  #simulador{padding:60px 12px;}
+  .sim-inner{max-width:100%;}
+  .sim-card{padding:24px 16px;}
+  .sim-grid{grid-template-columns:1fr;gap:20px;}
+  .risco-btns{gap:6px;}
+  .risco-btn{font-size:12px;padding:10px 6px;}
+  .btn-calcular{font-size:14px;padding:15px;}
+  .result-profile{flex-direction:column;gap:12px;text-align:center;}
+  .result-profile-name{font-size:20px;}
+  .result-ctas{grid-template-columns:1fr;}
+  .alloc-bar-label{width:130px;font-size:12px;}
+
+  /* CALCULADORA PATRIMONIO */
+  #calculadora{padding:60px 12px;}
+  .calc-inner{max-width:100%;}
+  .calc-grid{grid-template-columns:1fr;gap:20px;}
+  .calc-card{padding:24px 16px;}
+  .result-total-val{font-size:32px;}
+  .taxa-btns{gap:6px;}
+  .taxa-btn{font-size:11px;padding:10px 4px;}
+  .anos-num{width:60px;font-size:16px;}
+
+  /* PRODUTOS */
+  #produtos{padding:60px 12px;}
+  .prods-inner{max-width:100%;}
+  .prods-grid{grid-template-columns:1fr;gap:16px;}
+  .prod-card{padding:24px 20px;}
+  .prod-card-name{font-size:19px;}
+
+  /* EBOOK */
+  #ebook-gratis{padding:60px 12px;}
+  .ebook-inner{max-width:100%;}
+  .ebook-cover{width:150px;height:200px;}
+  .ebook-cover-num{font-size:42px;}
+  .ebook-title{font-size:22px;}
+  .ebook-form{max-width:100%;}
+
+  /* SECTION TITLES */
+  .section-title{font-size:26px;}
+  .section-sub{font-size:13px;}
+
+  /* FOOTER */
+  footer{padding:24px 16px;}
+  footer p{font-size:11px;}
+}
+
+@media(max-width:400px){
+  .hero-title{font-size:28px;}
+  .ir-result-row{flex-direction:column;gap:4px;text-align:left;}
+  .ir-result-val{font-size:16px;}
+  .ir-result-val.big{font-size:20px;}
+}
 </style>
 </head>
 <body>
