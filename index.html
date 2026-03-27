@@ -726,9 +726,116 @@ nav{
   .ir-result-val{font-size:16px;}
   .ir-result-val.big{font-size:20px;}
 }
+
+/* ══════════════════════════════
+   POPUP EBOOK
+══════════════════════════════ */
+#popup-overlay{
+  display:none;position:fixed;inset:0;z-index:1000;
+  background:rgba(8,15,28,.85);backdrop-filter:blur(6px);
+  align-items:center;justify-content:center;padding:20px;
+}
+#popup-overlay.show{display:flex;animation:fadeIn .35s ease;}
+
+#popup-box{
+  background:var(--navy2);border:1px solid var(--border);
+  border-radius:20px;max-width:460px;width:100%;
+  overflow:hidden;position:relative;animation:fadeUp .4s ease;
+}
+.popup-top{
+  background:linear-gradient(135deg,var(--navy3),var(--navy4));
+  border-bottom:1px solid var(--border);
+  padding:28px 28px 22px;
+}
+.popup-close{
+  position:absolute;top:14px;right:16px;
+  background:transparent;border:none;color:var(--text2);
+  font-size:22px;cursor:pointer;line-height:1;
+  transition:color .2s;
+}
+.popup-close:hover{color:var(--text);}
+.popup-tag{
+  display:inline-flex;align-items:center;gap:6px;
+  background:rgba(61,184,122,.12);border:1px solid rgba(61,184,122,.25);
+  border-radius:20px;padding:4px 12px;font-size:11px;font-weight:600;
+  color:var(--green2);letter-spacing:.4px;margin-bottom:14px;
+}
+.popup-title{
+  font-family:'DM Serif Display',serif;font-size:22px;
+  color:#FFF;line-height:1.3;margin-bottom:8px;
+}
+.popup-sub{font-size:13px;color:var(--text2);line-height:1.6;}
+.popup-body{padding:22px 28px 24px;}
+.popup-form{display:flex;flex-direction:column;gap:9px;margin-bottom:12px;}
+.popup-input{
+  background:rgba(12,21,36,.8);border:1px solid var(--border);
+  border-radius:10px;padding:12px 16px;font-size:14px;
+  color:var(--text);font-family:'DM Sans',sans-serif;outline:none;
+  transition:border-color .2s;
+}
+.popup-input:focus{border-color:var(--gold3);}
+.popup-input::placeholder{color:var(--muted);}
+.btn-popup{
+  width:100%;padding:14px;
+  background:linear-gradient(135deg,var(--gold),var(--gold3));
+  border:none;border-radius:10px;font-size:14px;font-weight:700;
+  color:var(--navy);cursor:pointer;font-family:'DM Sans',sans-serif;
+  transition:all .2s;
+}
+.btn-popup:hover{transform:translateY(-1px);box-shadow:0 5px 18px rgba(201,168,76,.4);}
+.btn-popup:disabled{opacity:.7;cursor:default;transform:none;}
+.popup-skip{
+  display:block;text-align:center;font-size:12px;color:var(--text2);
+  margin-top:8px;cursor:pointer;background:none;border:none;
+  font-family:'DM Sans',sans-serif;transition:color .2s;width:100%;
+}
+.popup-skip:hover{color:var(--text);}
+.popup-privacy{font-size:11px;color:var(--muted);text-align:center;margin-top:8px;}
+.popup-success{
+  display:none;text-align:center;padding:8px 0 4px;
+  animation:fadeIn .3s ease;
+}
+.popup-success p{font-size:14px;color:var(--green2);line-height:1.65;}
+
+@media(max-width:480px){
+  #popup-box{border-radius:16px;}
+  .popup-top{padding:22px 20px 18px;}
+  .popup-body{padding:18px 20px 20px;}
+  .popup-title{font-size:19px;}
+}
 </style>
 </head>
 <body>
+
+
+<!-- POPUP EBOOK -->
+<div id="popup-overlay">
+  <div id="popup-box">
+    <button class="popup-close" onclick="fecharPopup()">×</button>
+    <div class="popup-top">
+      <div class="popup-tag">🎁 100% gratuito</div>
+      <div class="popup-title">Os 5 erros que servidores públicos cometem na previdência privada</div>
+      <div class="popup-sub">8 páginas direto ao ponto — o custo real de cada erro e o que fazer no lugar.</div>
+    </div>
+    <div class="popup-body">
+      <div id="popup-form-wrap">
+        <div class="popup-form">
+          <input class="popup-input" type="text"  id="popup-nome"  placeholder="Seu nome">
+          <input class="popup-input" type="email" id="popup-email" placeholder="Seu melhor e-mail">
+        </div>
+        <button class="btn-popup" id="btn-popup" onclick="baixarEbookPopup()">
+          Quero o ebook gratuito →
+        </button>
+        <button class="popup-skip" onclick="fecharPopup()">Agora não, obrigado</button>
+        <p class="popup-privacy">🔒 Sem spam. Cancele quando quiser.</p>
+      </div>
+      <div class="popup-success" id="popup-success">
+        <p>✅ <strong>Ebook enviado!</strong><br>Verifique sua caixa de entrada.<br><small style="color:var(--text2)">Não encontrou? Verifique o spam.</small></p>
+        <button class="popup-skip" onclick="fecharPopup()" style="margin-top:12px;">Fechar</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- NAV -->
 <nav>
@@ -1479,6 +1586,51 @@ function irReset() {
     wrap.removeChild(wrap.lastChild);
   }
   document.getElementById("ir-chips").style.display = "flex";
+}
+
+// ══════════════════════════════
+// POPUP EBOOK
+// ══════════════════════════════
+function abrirPopup() {
+  if (sessionStorage.getItem("popup_shown")) return;
+  document.getElementById("popup-overlay").classList.add("show");
+  sessionStorage.setItem("popup_shown", "1");
+}
+
+function fecharPopup() {
+  document.getElementById("popup-overlay").classList.remove("show");
+}
+
+// Fecha ao clicar fora
+document.getElementById("popup-overlay").addEventListener("click", function(e){
+  if (e.target === this) fecharPopup();
+});
+
+// Abre após 8 segundos
+setTimeout(abrirPopup, 8000);
+
+async function baixarEbookPopup() {
+  const nome  = document.getElementById("popup-nome").value.trim();
+  const email = document.getElementById("popup-email").value.trim();
+  if (!email) { alert("Digite seu e-mail para receber o ebook 😊"); return; }
+
+  const btn = document.getElementById("btn-popup");
+  btn.textContent = "Enviando...";
+  btn.disabled = true;
+
+  try {
+    await fetch("https://enviar-ebook.thyago-hitalo.workers.dev", {
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({email, nome, ebookUrl: EBOOK_URL})
+    });
+    document.getElementById("popup-form-wrap").style.display = "none";
+    document.getElementById("popup-success").style.display   = "block";
+  } catch(e) {
+    btn.textContent = "Quero o ebook gratuito →";
+    btn.disabled = false;
+    alert("Erro ao enviar. Tente novamente.");
+  }
 }
 
 </script>
